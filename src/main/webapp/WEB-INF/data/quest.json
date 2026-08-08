@@ -1,0 +1,11 @@
+{
+  "Step": {
+    "id": 1,
+    "question": "вопрос",
+    "choices": [
+      {"text": "вопрос1", "nextStepId": 2},
+      {"text": "вопрос2", "nextStepId": 3},
+      {"text": "вопрос3", "nextStepId": 4}
+    ]
+  }
+}
