@@ -1,7 +1,7 @@
 package servlet;
 
 import model.Step;
-import service.QuestLoader;
+import repository.JsonQuestLoader;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +18,7 @@ public class GameServlet  extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         String path = getServletContext().getRealPath("/WEB-INF/data/quest.json");
-        QuestLoader loader = new QuestLoader();
+        JsonQuestLoader loader = new JsonQuestLoader();
         try {
             List<Step> steps = loader.load(path);
         } catch (IOException e) {
