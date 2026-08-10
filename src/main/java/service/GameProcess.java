@@ -1,23 +1,31 @@
 package service;
 
+import model.Choice;
 import model.GameState;
-import model.Step;
 
 public class GameProcess {
-    private GameState gm = new GameState();
 
-    // обновление состояния
-    public void updateState(){
+    private static final int LOSE_ID = 0;
+    private static final int WIN_ID = 99;
 
+    // процесс выбора
+    public int processChoice(Choice choice){
+        return choice.getNextStepId();
     }
 
     //проверка на win/lose
-    public void gameOverChack (){
-
+    public GameResult checkResult(GameState gameState){
+        if (gameState.getCurrentStepId() == LOSE_ID){
+            return GameResult.LOSE;
+        } else if (gameState.getCurrentStepId() == WIN_ID) {
+            return GameResult.WIN;
+        }else {
+            return GameResult.CONTINUE;
+        }
     }
 
-    // обработка выбора
-    public void processSelection (){
-
+    // обновление состояния
+    public void updateState (GameState gameState, int choiceIndex){
+    gameState.setCurrentStepId(choiceIndex);
     }
 }
