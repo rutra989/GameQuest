@@ -1,6 +1,5 @@
 package repository;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import model.Step;
 

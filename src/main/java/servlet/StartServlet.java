@@ -21,11 +21,11 @@ public class StartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
-        GameState gm = new GameState();
-        gm.setPlayerName(req.getParameter("username"));
-        gm.setPlayerId(new Random().nextInt(10000));
-        gm.setCurrentStepId(1);
-        session.setAttribute("gameState",gm);
-        resp.sendRedirect("/game");
+        GameState gameState = new GameState(); // создаем объект GameState, в котором будем инициализировать внутренние переменные
+        gameState.setPlayerName(req.getParameter("username")); // инициализируем имя пользователя введенное в поле для ввода из html
+        gameState.setPlayerId(new Random().nextInt(10000)); // рандомно создаем номер id и присваиваем его пользователю
+        gameState.setCurrentStepId(1); // обновляем номер локации, с которой пользователь начнет квест
+        session.setAttribute("gameState",gameState); // сохраняем сессия
+        resp.sendRedirect("/game"); // редирект на страницу квеста
     }
 }
