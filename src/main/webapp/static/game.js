@@ -16,7 +16,15 @@ fetch('/game')
     fetch('/game', {
         method: 'POST',
         body: new URLSearchParams({nextStepId: choice.nextStepId})
-    }).then(() => loadQuestion());
+    }).then(response => {
+          // 1. Проверяем, был ли редирект
+          if (response.redirected) {
+              window.location.href = response.url;
+              return;
+          } else{
+          loadQuestion();
+          }
+      })
     };
   });
   });

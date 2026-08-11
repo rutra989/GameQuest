@@ -18,6 +18,7 @@ import java.io.IOException;
 @WebServlet("/game")
 public class GameServlet extends HttpServlet {
     QuestRepository questRepository;
+    GameProcess gameProcess = new GameProcess();
 
     @Override
     public void init() throws ServletException {
@@ -38,7 +39,7 @@ public class GameServlet extends HttpServlet {
         ObjectMapper objectMapper = new ObjectMapper();
         if (session != null) {
             // достаю нужный объект из сессии
-           gameState = (GameState) session.getAttribute("gameState");
+            gameState = (GameState) session.getAttribute("gameState");
             if (gameState != null) {
                 // устанавливаю тип контекста и кодировку на отправку клиенту
                 resp.setContentType("application/json");
@@ -61,12 +62,16 @@ public class GameServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         int stepId = Integer.parseInt(req.getParameter("nextStepId"));
         GameState gameState = (GameState) session.getAttribute("gameState");
-        gameState.setCurrentStepId(stepId);
-        session.setAttribute("gameState", gameState);
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        mapper.writeValue(resp.getWriter(), questRepository.findById(gameState.getCurrentStepId()));
+        if ((gameState.getCurrentStepId() == 0 || gameState.getCurrentStepId() == 99) && stepId == 1) {
+            session.invalidate();
+            resp.sendRedirect("/start");
+        } else {
+            gameState.setCurrentStepId(stepId);
+            session.setAttribute("gameState", gameState);
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            mapper.writeValue(resp.getWriter(), questRepository.findById(gameState.getCurrentStepId()));
 
-
+        }
     }
 }
