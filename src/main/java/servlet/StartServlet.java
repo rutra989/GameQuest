@@ -26,6 +26,6 @@ public class StartServlet extends HttpServlet {
         gameState.setPlayerId(new Random().nextInt(10000)); // рандомно создаем номер id и присваиваем его пользователю
         gameState.setCurrentStepId(1); // обновляем номер локации, с которой пользователь начнет квест
         session.setAttribute("gameState",gameState); // сохраняем сессия
-        resp.sendRedirect("/game"); // редирект на страницу квеста
+        resp.sendRedirect("/game.html"); // редирект на страницу квеста
     }
 }

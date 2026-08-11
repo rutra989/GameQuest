@@ -9,8 +9,8 @@ public class GameProcess {
     private static final int WIN_ID = 99;
 
     // процесс выбора
-    public int processChoice(Choice choice){
-        return choice.getNextStepId();
+    public int processChoice(int nextStepId){
+        return nextStepId;
     }
 
     //проверка на win/lose
