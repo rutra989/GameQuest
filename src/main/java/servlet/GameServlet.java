@@ -3,8 +3,6 @@ package servlet;
 import model.GameState;
 import repository.JsonQuestRepository;
 import repository.QuestRepository;
-import service.GameProcess;
-import service.GameResult;
 import tools.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;
@@ -18,7 +16,6 @@ import java.io.IOException;
 @WebServlet("/game")
 public class GameServlet extends HttpServlet {
     QuestRepository questRepository;
-    GameProcess gameProcess = new GameProcess();
 
     @Override
     public void init() throws ServletException {
@@ -57,7 +54,7 @@ public class GameServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession(false);
         ObjectMapper mapper = new ObjectMapper();
         int stepId = Integer.parseInt(req.getParameter("nextStepId"));
